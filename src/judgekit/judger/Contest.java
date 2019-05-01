@@ -15,10 +15,10 @@ public class Contest implements java.io.Serializable {
 	private Map<String,Problem> problems = new HashMap<String,Problem>();
 	private Map<String,Contestant>contestants = new HashMap<String,Contestant>();
 	
-	Contest(String nPath){
+	public Contest(String nPath){
 		this.path=nPath;
 	}
-	Contest(){
+	public Contest(){
 		path=null;
 	}
 	
