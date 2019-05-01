@@ -89,14 +89,3 @@ public class Contest implements java.io.Serializable {
 	}
 }
 
-class JudgeContestant implements Runnable{
-	private ProblemList list;
-	private Contestant cont;
-	JudgeContestant(Contestant jCont,ProblemList pList){
-		list=pList;
-		cont=jCont;
-	}
-	public void run() {
-		
-	}
-}
