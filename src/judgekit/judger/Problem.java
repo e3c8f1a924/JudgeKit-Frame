@@ -3,7 +3,8 @@ package judgekit.judger;
 import java.io.File;
 import java.util.Vector;
 
-public class Problem {
+public class Problem implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private Vector<File> testdataIn = new Vector<File>(),testdataOut = new Vector<File>();
 	

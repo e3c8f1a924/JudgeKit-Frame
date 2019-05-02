@@ -13,7 +13,8 @@ public class Contest implements java.io.Serializable {
 	
 	private String path;
 	private Map<String,Problem> problems = new HashMap<String,Problem>();
-	private Map<String,Contestant>contestants = new HashMap<String,Contestant>();
+	private Map<String,Contestant> contestants = new HashMap<String,Contestant>();
+	private Map<String,String> compileCommand = new HashMap<String,String>();
 	
 	public Contest(String nPath){
 		this.path=nPath;
@@ -42,6 +43,23 @@ public class Contest implements java.io.Serializable {
 		}
 		return list;
 	}
+	public ContestantList getContestantList() {
+		ContestantList list = new ContestantList();
+		Iterator<Map.Entry<String,Contestant>> entry = contestants.entrySet().iterator();
+		while(entry.hasNext()) {
+			list.add(entry.next().getValue());
+		}
+		return list;
+	}
+	public ContestantList getContestantList(String[] keys) {
+		ContestantList list = new ContestantList();
+		for(int i=0;i<keys.length;i++) {
+			if(contestants.containsKey(keys[i])) {
+				list.add(contestants.get(keys[i]));
+			}
+		}
+		return list;
+	}
 	
 	public void setPath(String nPath) {
 		this.path=nPath;
@@ -52,6 +70,9 @@ public class Contest implements java.io.Serializable {
 	}
 	public void addContestant(Contestant cont) {
 		contestants.put(cont.getName(),cont);
+	}
+	public void addCompileCommand(String suffix,String command) {
+		compileCommand.put(suffix, command);
 	}
 	
 	public void removeProblem(String key) {
@@ -65,6 +86,16 @@ public class Contest implements java.io.Serializable {
 	}
 	public void removeContestant(Contestant cont) {
 		if(contestants.containsKey(cont.getName()))contestants.remove(cont.getName());
+	}
+	public void removeCompileCommand(String suffix) {
+		if(compileCommand.containsKey(suffix))compileCommand.remove(suffix);
+	}
+	
+	public void judge(ProblemList prob,ContestantList cont) {
+		this.judge(prob, cont,true);
+	}
+	public void judge(ProblemList prob,ContestantList cont,boolean multiThread) {
+		
 	}
 	
 	public static Contest init(String cPath) {
