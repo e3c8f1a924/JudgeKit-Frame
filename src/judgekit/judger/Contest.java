@@ -11,20 +11,28 @@ import java.util.Map;
 public class Contest implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private String path;
+	private String path,name;
 	private Map<String,Problem> problems = new HashMap<String,Problem>();
 	private Map<String,Contestant> contestants = new HashMap<String,Contestant>();
 	private Map<String,String> compileCommand = new HashMap<String,String>();
 	
+	public Contest(String nName,String nPath){
+		this.path=nPath;
+		this.name=nName;
+	}
 	public Contest(String nPath){
 		this.path=nPath;
+		this.name=null;
 	}
-	public Contest(){
-		path=null;
+	public Contest() {
+		this.path=this.name=null;
 	}
 	
 	public String getPath() {
 		return path;
+	}
+	public String getName() {
+		return name;
 	}
 	public ProblemList getProblemList() {
 		ProblemList list = new ProblemList();
@@ -64,6 +72,9 @@ public class Contest implements java.io.Serializable {
 	public void setPath(String nPath) {
 		this.path=nPath;
 	}
+	public void setName(String nName) {
+		this.name=nName;
+	}
 	
 	public void addProblem(Problem prob) {
 		problems.put(prob.getName(),prob);
@@ -98,9 +109,9 @@ public class Contest implements java.io.Serializable {
 		
 	}
 	
-	public static Contest init(String cPath) {
+	public static Contest init(String contestName,String contestPath) {
 		try {
-			ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(cPath+"Contest.jk"));
+			ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(contestPath+contestName+".jk"));
 			Contest cont = (Contest)inStream.readObject();
 			inStream.close();
 			return cont;
@@ -111,7 +122,7 @@ public class Contest implements java.io.Serializable {
 	}
 	public static void save(Contest obj) {
 		try {
-			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream(obj.getPath()+"Contest.jk",false));
+			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream(obj.getPath()+obj.getName()+".jk",false));
 			saveStream.writeObject(obj);
 			saveStream.close();
 		}catch(Exception e) {
