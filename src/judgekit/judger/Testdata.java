@@ -2,7 +2,8 @@ package judgekit.judger;
 
 import java.io.File;
 
-public class Testdata {
+public class Testdata implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	private Integer ID;
 	private File in,out;
 	
