@@ -1,12 +1,12 @@
 package judgekit.judger;
 
-import java.io.File;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Problem implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private Vector<File> testdataIn = new Vector<File>(),testdataOut = new Vector<File>();
+	private Map<Integer,Testdata> testdata = new HashMap<Integer,Testdata>();
 	
 	public String getName() {
 		return name;
@@ -16,24 +16,18 @@ public class Problem implements java.io.Serializable {
 		this.name=nName;
 	}
 	
-	public Vector<File> getAllTestData(boolean stdOutData){
-		if(stdOutData)return testdataOut;
-		return testdataIn;
+	public Map<Integer,Testdata> getAllTestData(){
+		return testdata;
 	}
 	
-	public void addTestData(boolean stdOutData,File data) {
-		if(stdOutData) {
-			testdataOut.addElement(data);
-		}else {
-			testdataIn.addElement(data);
-		}
+	public void addTestData(Testdata data) {
+		testdata.put(data.getID(), data);
 	}
 	
-	public void removeTestData(boolean stdOutData,File data) {
-		if(stdOutData) {
-			if(testdataOut.contains(data))testdataOut.removeElement(data);
-		}else {
-			if(testdataIn.contains(data))testdataIn.removeElement(data);
-		}
+	public void removeTestData(Testdata data) {
+		if(testdata.containsKey(data.getID()))testdata.remove(data.getID());
+	}
+	public void removeTestData(Integer ID) {
+		if(testdata.containsKey(ID))testdata.remove(ID);
 	}
 }
